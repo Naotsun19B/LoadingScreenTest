@@ -1,0 +1,15 @@
+﻿// Copyright Epic Games, Inc. All Rights Reserved.
+
+#include "LoadingScreenTestGameMode.h"
+#include "LoadingScreenTestCharacter.h"
+#include "UObject/ConstructorHelpers.h"
+
+ALoadingScreenTestGameMode::ALoadingScreenTestGameMode()
+{
+	// set default pawn class to our Blueprinted character
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPersonCPP/Blueprints/ThirdPersonCharacter"));
+	if (PlayerPawnBPClass.Class != NULL)
+	{
+		DefaultPawnClass = PlayerPawnBPClass.Class;
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"BuildId": "13144385",
+	"Modules": 
+	{
+		"CustomLoadingScreen": "UE4Editor-CustomLoadingScreen.dll",
+		"LoadingScreenTest": "UE4Editor-LoadingScreenTest.dll"
+	}
+}
