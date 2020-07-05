@@ -6,7 +6,6 @@
 #include "Fonts/SlateFontInfo.h"
 #include "Widgets/Layout/SScaleBox.h"
 #include "MoviePlayer.h"
-#include "Engine/DeveloperSettings.h"
 #include "CustomLoadingScreenSettings.generated.h"
 
 USTRUCT(BlueprintType)
@@ -104,10 +103,10 @@ struct CUSTOMLOADINGSCREEN_API FCustomLoadingScreenDescription
 };
 
 /**
- * Settings for the simple loading screen plugin.
+ * Settings for the loading screen.
  */
-UCLASS(config=Game, defaultconfig, meta=(DisplayName="Loading Screen"))
-class CUSTOMLOADINGSCREEN_API UCustomLoadingScreenSettings : public UDeveloperSettings
+UCLASS(config=Game, defaultconfig)
+class CUSTOMLOADINGSCREEN_API UCustomLoadingScreenSettings : public UObject
 {
 	GENERATED_UCLASS_BODY()
 

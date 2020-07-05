@@ -5,6 +5,10 @@
 #include "SCustomLoadingScreen.h"
 #include "Framework/Application/SlateApplication.h"
 
+#if WITH_EDITOR
+#include "ISettingsModule.h"
+#endif
+
 #define LOCTEXT_NAMESPACE "CustomLoadingScreen"
 
 class FCustomLoadingScreenModule : public ICustomLoadingScreenModule
@@ -35,6 +39,20 @@ FCustomLoadingScreenModule::FCustomLoadingScreenModule()
 
 void FCustomLoadingScreenModule::StartupModule()
 {
+#if WITH_EDITOR
+	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
+	{
+		SettingsModule->RegisterSettings(
+			"Project",
+			"LodingScreen",
+			"LodingScreenSetting",
+			LOCTEXT("SettingName", "LodingScreenSetting"),
+			LOCTEXT("SettingDescription", "Settings for the loading screen."),
+			GetMutableDefault<UCustomLoadingScreenSettings>()
+		);
+	}
+#endif
+
 	if ( !IsRunningDedicatedServer() && FSlateApplication::IsInitialized() )
 	{
 		// Load for cooker reference
@@ -69,6 +87,17 @@ void FCustomLoadingScreenModule::ShutdownModule()
 	//{
 	//	GetMoviePlayer()->OnPrepareLoadingScreen().RemoveAll(this);
 	//}
+
+#if WITH_EDITOR
+	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
+	{
+		SettingsModule->UnregisterSettings(
+			"Project",
+			"LodingScreen",
+			"LodingScreenSetting"
+		);
+	}
+#endif
 }
 
 void FCustomLoadingScreenModule::StartLoadingScreen(bool bOverrideAttributes, FOverrideAttributes Attributes)
